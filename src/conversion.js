@@ -10,9 +10,11 @@ const options = {
     output: 'index.mobi'
 }
 
-const command = `ebook-convert ${options.input} ${options.output} --title "${options.title}" --authors "${options.authors}"`;
+function convertToMobi(customTitle) {
+    
+    if (customTitle) options.title = customTitle;
+    const command = `ebook-convert ${options.input} ${options.output} --title "${options.title}" --authors "${options.authors}"`;
 
-function convertToMobi() {
     return new Promise((resolve, reject) => {
         exec(command, {cwd: path.resolve('./articles')}, (err, stdout, stderr) => {
             if (err) throw err;

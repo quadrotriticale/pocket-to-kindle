@@ -11,7 +11,13 @@ Pocket articles tagged with a specified tag are retrieved through the Pocket API
 
 ## Usage
 Set your keys, email addresses, and Pocket tag in `config.js`.
+
+Send the articles to your Kindle using the default options.
 ```
-npm install
-npm start
+node src/index.js
+```
+
+You can also specify a title for the MOBI file and a different tag of the articles to retrieve from Pocket (overriding the tag in `config.js`).
+```
+node src/index.js --tag=myOtherTag --title="My Title"
 ```

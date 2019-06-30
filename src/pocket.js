@@ -4,8 +4,9 @@ const { pocketConfig } = require('../config.js');
 const url = 'https://getpocket.com/v3/get';
 
 
-async function getPocketArticles() {
+async function getPocketArticles(customTag) {
 
+    if (customTag) pocketConfig.tag = customTag;
     const response = await axios.post(url, pocketConfig);
     
     const articlesObject = response.data.list;
