@@ -1,8 +1,8 @@
 const argv = require('yargs').argv;
 const getPocketArticles = require('./pocket.js');
 const createHtmlFiles = require('./html.js');
-const convertToMobi = require('./conversion.js');
-const sendMobiToKindle = require('./email.js');
+const convertToEpub = require('./conversion.js');
+const sendEpubToKindle = require('./email.js');
 
 
 async function main() {
@@ -13,8 +13,8 @@ async function main() {
   try {
     const articles = await getPocketArticles(tag);
     await createHtmlFiles(articles);
-    await convertToMobi(title);
-    sendMobiToKindle();
+    await convertToEpub(title);
+    sendEpubToKindle();
   } catch (err) {
       console.log(err);
   }

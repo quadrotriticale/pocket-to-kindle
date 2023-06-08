@@ -1,31 +1,34 @@
-const sgMail = require('@sendgrid/mail');
-const fs = require('fs');
-const { sendgridConfig } = require('../config.js');
+const nodemailer = require('nodemailer');
+const { emailConfig } = require('../config.js');
 
-sgMail.setApiKey(sendgridConfig.api_key);
+const sendEpubToKindle = async () => {
 
-async function sendMobiToKindle() {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: emailConfig.email_address,
+            pass: emailConfig.password
+        }
+    });
 
-  const file = fs.readFileSync('./articles/index.mobi');
-  const base64File = new Buffer(file).toString('base64');
-  
-  const message = {
-    from: sendgridConfig.from_address,
-    to: sendgridConfig.kindle_address,
-    subject: 'Pocket to Kindle',
-    text: 'Your Pocket articles',
-    attachments: [
-      {
-        content: base64File,
-        filename: 'index.mobi'
-      }
-    ]
-  };
+    const mailOptions = {
+        from: emailConfig.from_address,
+        to: emailConfig.kindle_address,
+        subject: 'Pocket to Kindle',
+        attachments: [{  
+            filename: 'index.epub',
+            path: '../node-pocket-to-kindle/articles/index.epub'
+        }]
+    };
 
-  await sgMail.send(message);
-  console.log('Email sent to your Kindle device');
-    
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    }); 
+
 }
 
-
-module.exports = sendMobiToKindle;
+module.exports = sendEpubToKindle;

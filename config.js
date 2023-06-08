@@ -4,12 +4,12 @@ const pocketConfig = {
     tag: 'kindle'
 }
 
-const sendgridConfig = {
-    api_key: '<yourApiKey>',
-    from_address: '<yourEmailAddress>',
-    kindle_address: '<yourKindleEmailAddress>'
+const emailConfig = {
+    email_address: '<yourEmailAddress',
+    password: '<yourPassword>',
+    kindle_address: '<yourKindleAddress>'
 }
 
 
 module.exports.pocketConfig = pocketConfig;
-module.exports.sendgridConfig = sendgridConfig;
+module.exports.emailConfig = emailConfig;
