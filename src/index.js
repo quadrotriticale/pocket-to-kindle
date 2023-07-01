@@ -5,7 +5,7 @@ const convertToEpub = require('./conversion.js');
 const sendEpubToKindle = require('./email.js');
 
 
-async function main() {
+const main = async () => {
 
   const tag = argv.tag;
   const title = argv.title;
@@ -14,7 +14,7 @@ async function main() {
     const articles = await getPocketArticles(tag);
     await createHtmlFiles(articles);
     await convertToEpub(title);
-    sendEpubToKindle();
+    await sendEpubToKindle();
   } catch (err) {
       console.log(err);
   }

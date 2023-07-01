@@ -12,12 +12,13 @@ const sendEpubToKindle = async () => {
     });
 
     const mailOptions = {
-        from: emailConfig.from_address,
+        from: emailConfig.email_address,
         to: emailConfig.kindle_address,
         subject: 'Pocket to Kindle',
+        text: 'Your Pocket articles',
         attachments: [{  
             filename: 'index.epub',
-            path: '../node-pocket-to-kindle/articles/index.epub'
+            path: process.cwd() + '/articles/index.epub'
         }]
     };
 
