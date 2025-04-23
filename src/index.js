@@ -7,16 +7,16 @@ const sendEpubToKindle = require('./email.js');
 
 const main = async () => {
 
-  const tag = argv.tag;
-  const title = argv.title;
+  const { tag, title } = argv;
   
   try {
     const articles = await getPocketArticles(tag);
     await createHtmlFiles(articles);
     await convertToEpub(title);
     await sendEpubToKindle();
+    console.log("All done!");
   } catch (err) {
-      console.log(err);
+      console.log("Something went wrong. ", err.message);
   }
 
 }

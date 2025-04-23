@@ -11,11 +11,8 @@ async function createHtmlFiles(articles) {
     for (const article of articles)
         await createHtmlFile(article);
 
-    return new Promise((resolve, reject) => {
-        createTableOfContentsFile(articles);
-        console.log('Created HTML files for your articles...');
-        resolve();
-    })
+    createTableOfContentsFile(articles);
+    console.log('Created HTML files for your articles...');
     
 }
 
@@ -25,7 +22,12 @@ function createHtmlFile(article) {
 
     return new Promise((resolve, reject) => {
         read(url, (err, page, meta) => {
-            if (err) throw err;
+
+            if (err) {
+                console.log("Failed to get page content, ", err.message);
+                return reject(err);
+            }
+
             const htmlContent = page.content;
             const html = `
                 <html>
@@ -36,8 +38,8 @@ function createHtmlFile(article) {
                     <h1>${title}</h1>
                     ${htmlContent}
                 </body>
-                </html>
-            `;
+                </html>`;
+
             fs.writeFileSync(`${folderPath}/article${id}.html`, html);
             page.close();
             resolve();
@@ -80,7 +82,7 @@ function clearArticlesFolder() {
 
     const files = fs.readdirSync(folderPath);
     for (const file of files)
-            fs.unlinkSync(`${folderPath}/${file}`);
+        fs.unlinkSync(`${folderPath}/${file}`);
             
 }
 

@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const { emailConfig } = require('../config.js');
 
+
 const sendEpubToKindle = async () => {
 
     const transporter = nodemailer.createTransport({
@@ -22,13 +23,13 @@ const sendEpubToKindle = async () => {
         }]
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    }); 
+    try {
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent: ' + info.response);
+    } catch(err) {
+        console.error('Failed to send email:', err.message);
+        throw err;
+    }
 
 }
 

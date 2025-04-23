@@ -1,12 +1,13 @@
 const pocketConfig = {
     consumer_key: '<yourConsumerKey>',
     access_token: '<yourAccessToken>',
+    state: 'unread',
     tag: 'kindle'
 }
 
 const emailConfig = {
     email_address: '<yourEmailAddress',
-    password: '<yourPassword>',
+    password: '<yourAppPassword>',
     kindle_address: '<yourKindleAddress>'
 }
 
